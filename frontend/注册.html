@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册 - 非遗文化传承平台</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .register-container {
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .register-container h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            border-color: #e44d26;
+            outline: none;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .password-strength {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .password-strength.weak {
+            color: #dc3545;
+        }
+
+        .password-strength.medium {
+            color: #ffc107;
+        }
+
+        .password-strength.strong {
+            color: #28a745;
+        }
+
+        .btn-register {
+            width: 100%;
+            padding: 1rem;
+            background-color: #e44d26;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-register:hover {
+            background-color: #c73e1d;
+        }
+
+        .btn-register:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .login-link a {
+            color: #e44d26;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="index.html">非遗文化传承平台</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="heritage.html">非遗项目</a></li>
+                <li><a href="products.html">文创产品</a></li>
+                <li><a href="community.html">社区分享</a></li>
+                <li class="user-info" style="display: none;">
+                    <span class="username"></span>
+                    <a href="user-profile.html">个人中心</a>
+                </li>
+                <li class="login-link">
+                    <a href="登录.html">登录</a>
+                </li>
+                <li class="logout-button" style="display: none;">
+                    <a href="#">退出</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="register-container">
+            <h1>用户注册</h1>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="username">用户名</label>
+                    <input type="text" id="username" name="username" required>
+                    <div class="error-message" id="usernameError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="email">电子邮箱</label>
+                    <input type="email" id="email" name="email" required>
+                    <div class="error-message" id="emailError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="password">密码</label>
+                    <input type="password" id="password" name="password" required>
+                    <div class="password-strength" id="passwordStrength"></div>
+                    <div class="error-message" id="passwordError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">确认密码</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    <div class="error-message" id="confirmPasswordError"></div>
+                </div>
+                <button type="submit" class="btn-register" id="registerButton">注册</button>
+            </form>
+            <div class="login-link">
+                已有账号？<a href="登录.html">立即登录</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>关于我们</h3>
+                <p>非遗文化传承平台致力于保护和传承非物质文化遗产，让更多人了解和参与非遗文化的传承与发展。</p>
+            </div>
+            <div class="footer-section">
+                <h3>联系方式</h3>
+                <p>邮箱：contact@feiyi.com</p>
+                <p>电话：123-456-7890</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 非遗文化传承平台. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 检查密码强度
+        function checkPasswordStrength(password) {
+            let strength = 0;
+            if (password.length >= 8) strength++;
+            if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength++;
+            if (password.match(/\d/)) strength++;
+            if (password.match(/[^a-zA-Z\d]/)) strength++;
+            
+            const strengthElement = document.getElementById('passwordStrength');
+            if (strength <= 2) {
+                strengthElement.textContent = '密码强度：弱';
+                strengthElement.className = 'password-strength weak';
+            } else if (strength === 3) {
+                strengthElement.textContent = '密码强度：中';
+                strengthElement.className = 'password-strength medium';
+            } else {
+                strengthElement.textContent = '密码强度：强';
+                strengthElement.className = 'password-strength strong';
+            }
+            return strength;
+        }
+
+        // 显示错误信息
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+
+        // 隐藏错误信息
+        function hideError(elementId) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.style.display = 'none';
+        }
+
+        // 验证表单
+        function validateForm() {
+            let isValid = true;
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // 验证用户名
+            if (username.length < 3) {
+                showError('usernameError', '用户名至少需要3个字符');
+                isValid = false;
+            } else {
+                hideError('usernameError');
+            }
+
+            // 验证邮箱
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showError('emailError', '请输入有效的邮箱地址');
+                isValid = false;
+            } else {
+                hideError('emailError');
+            }
+
+            // 验证密码
+            if (password.length < 8) {
+                showError('passwordError', '密码至少需要8个字符');
+                isValid = false;
+            } else if (checkPasswordStrength(password) < 3) {
+                showError('passwordError', '密码强度不够，请包含大小写字母、数字和特殊字符');
+                isValid = false;
+            } else {
+                hideError('passwordError');
+            }
+
+            // 验证确认密码
+            if (password !== confirmPassword) {
+                showError('confirmPasswordError', '两次输入的密码不一致');
+                isValid = false;
+            } else {
+                hideError('confirmPasswordError');
+            }
+
+            return isValid;
+        }
+
+        // 注册表单提交
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (!validateForm()) {
+                return;
+            }
+
+            const registerButton = document.getElementById('registerButton');
+            registerButton.disabled = true;
+            registerButton.textContent = '注册中...';
+
+            try {
+                const response = await fetch('http://localhost:8080/api/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: document.getElementById('username').value,
+                        email: document.getElementById('email').value,
+                        password: document.getElementById('password').value
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || '注册失败');
+                }
+
+                alert('注册成功！');
+                window.location.href = '登录.html';
+            } catch (error) {
+                alert(error.message || '注册失败，请重试');
+            } finally {
+                registerButton.disabled = false;
+                registerButton.textContent = '注册';
+            }
+        });
+
+        // 密码强度实时检查
+        document.getElementById('password').addEventListener('input', function() {
+            checkPasswordStrength(this.value);
+        });
+
+        // 确认密码实时检查
+        document.getElementById('confirmPassword').addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            if (this.value !== password) {
+                showError('confirmPasswordError', '两次输入的密码不一致');
+            } else {
+                hideError('confirmPasswordError');
+            }
+        });
+    </script>
+    <script src="js/user.js"></script>
+</body>
+</html> 

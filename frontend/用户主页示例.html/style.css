@@ -1,0 +1,9 @@
+*{
+    background-image: url(background.jpg);
+}
+.photo{
+    display: flex;
+    width:1000px;
+    height:300px;
+    margin:0px auto;
+}

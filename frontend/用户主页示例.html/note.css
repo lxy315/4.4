@@ -1,0 +1,20 @@
+*{
+   background-image: url(background.jpg);
+}
+.picture {
+    width: 300px;
+    height:360px;
+    float:left;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+.picture img{
+    width:300px;
+    height:360px;
+    margin-bottom:0px;
+}
+.picture p{
+    margin-top: 0px;
+    font-size: 14px;
+    text-align: center;
+}
